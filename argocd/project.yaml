@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: nginx-test
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Nginx test application project
+  sourceRepos:
+    - 'https://github.com/Cyber-Test-org/applications.git'
+  destinations:
+    - namespace: default
+      server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+    - group: ''
+      kind: Service
+    - group: 'apps'
+      kind: Deployment
